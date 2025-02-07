@@ -70,11 +70,6 @@ function Calendar({
     },
   };
 
-  const mergedComponents = {
-    ...defaultComponents,
-    ...userComponents,
-  };
-
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
