@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Overview } from "@/components/dashboard/overview"
 import { RecentTransactions } from "@/components/dashboard/recent-transactions"
@@ -30,6 +30,35 @@ interface NetWorthLog {
 export default function DashboardPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [netWorthLogs, setNetWorthLogs] = useState<NetWorthLog[]>([])
+
+  useEffect(() => {
+    // Fetch transactions
+    const fetchTransactions = async () => {
+      try {
+        // Replace this with your actual API call
+        const response = await fetch('/api/transactions')
+        const data = await response.json()
+        setTransactions(data)
+      } catch (error) {
+        console.error('Error fetching transactions:', error)
+      }
+    }
+
+    // Fetch net worth logs
+    const fetchNetWorthLogs = async () => {
+      try {
+        // Replace this with your actual API call
+        const response = await fetch('/api/net-worth-logs')
+        const data = await response.json()
+        setNetWorthLogs(data)
+      } catch (error) {
+        console.error('Error fetching net worth logs:', error)
+      }
+    }
+
+    fetchTransactions()
+    fetchNetWorthLogs()
+  }, []) // Empty dependency array means this runs once on mount
 
   return (
     <div className="flex flex-col gap-8">
