@@ -80,7 +80,16 @@ function Calendar({
       showOutsideDays={showOutsideDays}
       className={cn("w-fit", className)}
       classNames={mergedClassNames}
-      components={mergedComponents}
+      components={{
+        ...defaultComponents,
+        ...userComponents,
+        Chevron: (props: { className?: string; size?: number; disabled?: boolean; orientation?: "left" | "right" | "up" | "down"; }) => {
+          if (props.orientation === "left") {
+            return <ChevronLeft size={16} strokeWidth={2} {...props} aria-hidden="true" />;
+          }
+          return <ChevronRight size={16} strokeWidth={2} {...props} aria-hidden="true" />;
+        }
+      }}
       {...props}
     />
   );

@@ -1,13 +1,36 @@
 'use client'
 
+import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Overview } from "@/components/dashboard/overview"
 import { RecentTransactions } from "@/components/dashboard/recent-transactions"
 import { ExpensesByCategory } from "@/components/dashboard/expenses-by-category"
 import { NetWorthChart } from "@/components/dashboard/net-worth-chart"
 import { ArrowUpIcon, ArrowDownIcon, DollarSign, LineChart } from "lucide-react"
+import { EmptyState } from "@/components/ui/empty-state"
+
+// Define the Transaction type
+interface Transaction {
+  id: string
+  transaction_type: 'income' | 'expense'
+  title: string
+  value: number
+  category: string
+  date: string
+}
+
+// Define the NetWorthLog type
+interface NetWorthLog {
+  id: string
+  date: string
+  title: string
+  value: number
+}
 
 export default function DashboardPage() {
+  const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [netWorthLogs, setNetWorthLogs] = useState<NetWorthLog[]>([])
+
   return (
     <div className="flex flex-col gap-8">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -59,7 +82,16 @@ export default function DashboardPage() {
             <CardTitle>Overview</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <Overview />
+            {transactions.length === 0 ? (
+              <EmptyState
+                icon={DollarSign}
+                title="No transactions yet"
+                description="Add your first transaction to see your income and expenses overview."
+                className="min-h-[350px]"
+              />
+            ) : (
+              <Overview data={transactions} />
+            )}
           </CardContent>
         </Card>
         <Card className="col-span-3">
@@ -67,7 +99,7 @@ export default function DashboardPage() {
             <CardTitle>Recent Transactions</CardTitle>
           </CardHeader>
           <CardContent>
-            <RecentTransactions />
+            <RecentTransactions data={transactions.slice(0, 5)} />
           </CardContent>
         </Card>
       </div>
@@ -78,7 +110,7 @@ export default function DashboardPage() {
             <CardTitle>Net Worth Trend</CardTitle>
           </CardHeader>
           <CardContent>
-            <NetWorthChart />
+            <NetWorthChart data={netWorthLogs} />
           </CardContent>
         </Card>
         <Card className="col-span-3">
@@ -86,7 +118,7 @@ export default function DashboardPage() {
             <CardTitle>Expenses by Category</CardTitle>
           </CardHeader>
           <CardContent>
-            <ExpensesByCategory />
+            <ExpensesByCategory data={transactions.filter(t => t.transaction_type === 'expense')} />
           </CardContent>
         </Card>
       </div>
