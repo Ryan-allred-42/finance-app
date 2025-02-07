@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import Image from 'next/image'
 
 interface Feature {
   step: string;
@@ -77,9 +78,11 @@ export function FeatureSteps({
                 }}
                 transition={{ duration: 0.5 }}
               >
-                <img
+                <Image 
                   src={feature.image}
                   alt={feature.title}
+                  width={500}
+                  height={300}
                   className="object-cover w-full h-full rounded-xl"
                 />
               </motion.div>

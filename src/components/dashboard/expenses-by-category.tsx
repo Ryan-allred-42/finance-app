@@ -72,7 +72,7 @@ export function ExpensesByCategory({ data }: ExpensesByCategoryProps) {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        {chartData.map((category, index) => (
+        {chartData.map((category) => (
           <div key={category.name} className="flex items-center space-x-2">
             <div
               className="w-3 h-3 rounded-full"
