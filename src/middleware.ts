@@ -12,6 +12,7 @@ export async function middleware(req: NextRequest) {
 
   // Public routes that don't require authentication
   const publicRoutes = ['/', '/login', '/signup']
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const isPublicRoute = publicRoutes.includes(req.nextUrl.pathname)
 
   // Protected routes that require authentication
