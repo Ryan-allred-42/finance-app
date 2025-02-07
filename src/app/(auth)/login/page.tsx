@@ -2,13 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useId, useState } from "react"
@@ -30,16 +23,10 @@ export default function LoginPage() {
     const email = formData.get('email') as string
     const password = formData.get('password') as string
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
-
-    if (error) {
-      setError(error.message)
-      setLoading(false)
-      return
-    }
 
     router.push('/dashboard')
   }
