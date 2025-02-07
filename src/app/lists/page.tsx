@@ -326,7 +326,7 @@ export default function ListsPage() {
                             <Label className="font-medium">{column.name}</Label>
                             {column.type === 'number' && (
                               <Select
-                                onValueChange={(value) => calculateColumnStats(column.id, value as any)}
+                                onValueChange={(value) => calculateColumnStats(column.id, value as 'sum' | 'average' | 'min' | 'max')}
                               >
                                 <SelectTrigger className="w-[100px]">
                                   <SelectValue placeholder="Calculate" />

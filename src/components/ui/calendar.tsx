@@ -9,6 +9,10 @@ import { buttonVariants } from "@/components/ui/button";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
+interface ChevronProps extends React.ComponentPropsWithoutRef<"svg"> {
+  orientation: "left" | "right";
+}
+
 function Calendar({
   className,
   classNames,
@@ -58,8 +62,8 @@ function Calendar({
   );
 
   const defaultComponents = {
-    Chevron: (props: any) => {
-      if (props.orientation === "left") {
+    Chevron: ({ orientation, ...props }: ChevronProps) => {
+      if (orientation === "left") {
         return <ChevronLeft size={16} strokeWidth={2} {...props} aria-hidden="true" />;
       }
       return <ChevronRight size={16} strokeWidth={2} {...props} aria-hidden="true" />;

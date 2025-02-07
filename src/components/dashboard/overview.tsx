@@ -11,13 +11,19 @@ interface Transaction {
   date: string
 }
 
+interface MonthlyData {
+  name: string
+  income: number
+  expenses: number
+}
+
 interface OverviewProps {
   data: Transaction[]
 }
 
 export function Overview({ data }: OverviewProps) {
   // Process data to group by month
-  const monthlyData = data.reduce((acc: any[], transaction) => {
+  const monthlyData = data.reduce((acc: MonthlyData[], transaction) => {
     const date = new Date(transaction.date)
     const month = date.toLocaleString('default', { month: 'short' })
     
